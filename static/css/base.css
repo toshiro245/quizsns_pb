@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+}
+
+/* ヘッダー */
+header {
+    height: 65px;
+    width: 100%;
+    background-color: rgba(242, 171, 63, 0.7);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgba(250, 250, 250, 0.9);
+}
+
+
+.header-container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.header-left {
+    float: left;
+    line-height: 65px;
+    font-size: 20px;
+}
+
+.header-left a {
+    color: white;
+    text-decoration: none;
+}
+
+.header-right {
+    float: right;
+    line-height: 65px;
+}
+
+.header-right ul {
+    margin: 0px;
+}
+
+.header-right li {
+    list-style: none;
+    float:left;
+    padding: 0 15px;
+}
+
+.header-right li:hover {
+    background-color: rgba(242, 171, 63, 0.7);
+    cursor: pointer;
+}
+
+.header-right a {
+    color: white;
+    display: block;
+    text-decoration: none;
+}
+
+
+/* スマホ用メニュー */
+.fa-th-list {
+    color: white;
+    float: right;
+    font-size: 30px;
+    padding: 20px 0;
+    margin-right: 5px;
+    display: none !important;
+}
+
+.fa-th-list:hover {
+    cursor: pointer;
+}
+
+.header-sm-wrapper {
+    padding-top: 30px;
+    position: fixed;
+    top: 65px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(250, 235, 212, 0.6);
+    z-index: 100;
+    display: none;
+}
+
+.header-sm {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header-sm-content h3 {
+    border-bottom: 3px solid #dbd3c5;
+}
+
+.header-sm-content p {
+    padding: 20px 0;
+}
+
+.header-sm-content p:hover {
+    background-color: rgba(242, 171, 63, 0.2);
+    cursor: pointer;
+}
+
+/* レスポンシブデザイン */
+@media(max-width: 670px) {
+
+.fa-th-list {
+    display: block !important;
+}
+.header-right {
+    display: none;
+}
+
+.header-right a {
+    color: gray;
+}
+
+}

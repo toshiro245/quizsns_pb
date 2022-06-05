@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <p>削除してよろしいでしょうか？</p>
+    <input type="submit" value="削除する">
+</form>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+regist - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/user_edit.css' %}">
+
+
+<div class="edit-wrapper">
+    <div class="edit">
+        <h3>ユーザー情報編集画面</h3>
+
+        <form method="POST" class="edit-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% if form.errors %}
+                {% for key, value in form.errors.items %}
+                    {% if key != '__all__' %}
+                        <p>{{key}}{{value.as_text}}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <div class="form-content">
+                {{ form.username.label }}:<br>
+                {{ form.username }}
+            </div>
+            <div class="form-content">
+                {{ form.loginid.label }}:<br>
+                {{ form.loginid }}
+            </div>
+            <div class="form-content">
+                プロフィール画像:<br>
+                {{ form.profile_image }}
+            </div>
+            <div class="btn-wrapper"> 
+                <input class="btn-edit" type="submit" value="更新">
+            </div>
+            <div class="change-password-btn">
+                <a href="{% url 'accounts:user_password_change' %}">パスワードの変更はこちらから</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,97 @@
+.edit {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.edit h3 {
+    font-size: 25px;
+    letter-spacing: 5px;
+    border-bottom: 2px solid burlywood;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.edit-form {
+    width: 100%;
+}
+
+.form-content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.form-control {
+    font-size: 16px;
+    padding: 10px;
+    margin: 15px auto; 
+    width: 100%;
+    border: 1px solid rgba(173, 173, 170, 0.6);
+    border-radius: 10px;
+}
+
+.btn-wrapper {
+    text-align: center;
+}
+
+.btn-edit {
+    padding: 10px 35px;
+    border-radius: 10px;
+    background-color: rgba(171, 170, 166, 0.3);
+    color: black;
+    font-size: 15px;
+    border: 1px solid gray;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-edit:hover {
+    background-color: rgba(171, 170, 166, 1);
+}
+
+.change-password-btn {
+    text-align: right;
+    margin-top: 25px;
+    font-size: 15px;
+}
+
+/* レスポンシブデザイン */
+/* タブレット */
+@media(max-width: 1000px) {
+.edit {
+    width: 85%;
+}    
+
+.edit h3 {
+    font-size: 20px;
+    letter-spacing: 3px;
+}
+
+
+}
+        
+/* スマホ */
+@media(max-width: 670px) {
+
+.edit {
+    width: 100%;
+}
+
+.edit h3 {
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+.form-control {
+    font-size: 14px;
+    padding: 5px;
+}
+
+.form-content {
+    font-size: 14px;
+}
+
+.change-password-btn {
+    font-size: 14px;
+}
+
+}

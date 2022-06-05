@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+quizcreate - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/quiz_create.css' %}">
+
+<div class="quiz-create-wrapper">
+    <div class="quiz-create">
+        <h2>オリジナルのクイズをつくろう！</h2>
+
+        <form method="POST" class="quiz-create-form">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            <div>
+                <p>{{ form.title.label }}&nbsp;(必須,50文字以内):</p>
+                {% if form.title.errors %}
+                    <div class="error-message">{{ form.title.errors }}</div>
+                {% endif %}
+                {{ form.title }}
+            </div>
+            <div>
+                <p>{{ form.problem.label }}&nbsp;(必須):</p>
+                {% if form.problem.errors %}
+                <div class="error-message">{{ form.problem.errors }}</div>
+                {% endif %}
+                {{ form.problem }}
+            </div>
+            <div>
+                <p>{{ form.hint.label }}&nbsp;(任意,1000文字以内):</p>
+                {% if form.hint.errors %}
+                <div class="error-message">{{ form.hint.errors }}</div>
+                {% endif %}
+                {{ form.hint }}
+            </div>
+            <div>
+                <p>{{ form.answer.label }}&nbsp;(必須):</p>
+                {% if form.answer.errors %}
+                <div class="error-message">{{ form.answer.errors }}</div>
+                {% endif %}
+                {{ form.answer }}
+            </div>
+            <input class="btn-quiz-create" type="submit" value="投稿">
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

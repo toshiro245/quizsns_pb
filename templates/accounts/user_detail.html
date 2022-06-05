@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block title %}
+userpage - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% load accounts_templatetag %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/user_detail.css' %}">
+
+<div class="mypage-topwrapper">
+    <div class="mypage-basic-info">
+        {% if object.profile_image %}
+            <img class="profile-image" src="{{ object.profile_image.url }}">
+        {% else %}
+            <img class="profile-image" src="{% static 'images/profile.png' %}">
+        {% endif %}
+        <p>ユーザー名：{{ object.username }}</p>
+        {% if object.id == user.id %}
+            <p><a href="{% url 'accounts:user_edit' pk=user.id %}">ユーザー情報を編集</a></p>
+        {% else %}
+            <button type="button" id="favorite-user-btn" class="favorite-user-btn">
+                {% if loginuser_favorite %}
+                    お気に入り登録を解除する
+                {% else %}
+                    お気に入りの出題者登録する
+                {% endif %}
+            </button>
+        {% endif %}
+    </div>
+
+    <div class="favorite-users-wrapper">
+        <hr class="favorite-user-border">
+        <h3>お気に入りのクイズ出題者</h3>
+        <div class="favorite-users">
+            {% for favorite_user in favorite_users %}
+            <div class="favorite-user-item">
+                {% if favorite_user.to_user_id.profile_image %}
+                    <img class="favorite-user-profile-image" src="{{ favorite_user.to_user_id.profile_image.url }}">
+                {% else %}
+                    <img class="favorite-user-profile-image" src="{% static 'images/profile.png' %}">
+                {% endif %}
+                <a href="{% url 'accounts:user_detail' pk=favorite_user.to_user_id.id %}">&nbsp;{{ favorite_user.to_user_id.username | truncatechars:10 }}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    <div class="mypage-mypost">
+        <h3>投稿したなぞなぞ</h3>
+        <div class="mypost-quizlist">
+            {% for quiz in quiz_list %}
+            {% quiz_problem_text my_quiz_problems forloop.counter0 as quiz_problem %}
+            <div class="quiz-item">
+                {{ quiz.title | truncatechars:25 }}<hr>
+                {{ quiz_problem | truncatechars:30 }}
+                <a href="{% url 'quizpost:quiz_detail' pk=quiz.id %}"></a>
+                <p class="quiz-create-info">
+                    {{ quiz.user.username }}, {{ quiz.create_at | date:"Y-m-j" }}&nbsp;&nbsp;
+                    <i class="fas fa-lg fa-heart"></i>&nbsp;({{ quiz.quizlist_set.count }})
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="load-quiz" class="load-quiz"> 
+            <button type="button" name="{{ myquiz_offset }}" id="load-myquiz-btn" class="load-myquiz-btn">もっと見る</button>
+        </div>
+        
+
+    </div>
+
+    <div class="mypage-likepost">
+        <h3>いいねしたなぞなぞ</h3>
+        <div class="likepost-quizlist">
+            {% for liked_quiz in liked_quiz_list %}
+            {% quiz_problem_text liked_quiz_problems forloop.counter0 as quiz_problem %}
+            <div class="quiz-item">
+                {{ liked_quiz.quiz_post.title | truncatechars:25 }}<hr>
+                {{ quiz_problem | truncatechars:30 }}
+                <a href="{% url 'quizpost:quiz_detail' pk=liked_quiz.quiz_post.id %}"></a>
+                <p class="quiz-create-info">
+                    {{ liked_quiz.user.username }}, {{ liked_quiz.quiz_post.create_at | date:"Y-m-j" }}&nbsp;&nbsp;
+                    <i class="fas fa-lg fa-heart"></i>&nbsp;({{ liked_quiz.quiz_post.quizlist_set.count }})
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="load-quiz" class="load-quiz"> 
+            <button type="button" name="{{ likequiz_offset }}" id="load-likequiz-btn" class="load-likequiz-btn">もっと見る</button>
+        </div>
+    </div>
+    <input name="csrfToken" value="{{ csrf_token }}" type="hidden">
+
+</div>
+
+
+
+<!-- Ajax -->
+<script>
+    //追加のクイズ読み込み(自分が投稿したクイズ)
+    $('#load-myquiz-btn').click(function(){
+        var token = $('input[name="csrfToken"]').attr('value');
+        $.ajaxSetup({
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-CSRFToken', token)
+            }
+        })
+        $.ajax({
+            type: "POST",
+            url: "{% url 'accounts:load_mypage_myquiz' %}",
+            data: {
+                'user_id': "{{ object.id }}",
+                'myquiz_offset': $(this).attr('name'),
+            },
+            dataType: 'json',
+            success: function(response){
+                $('.mypost-quizlist').append(response.my_quiz_list);
+                $('.load-myquiz-btn').attr('name', response.myquiz_offset);
+            }
+
+        });
+    });
+
+    //追加のクイズ読み込み(自分がいいねしたクイズ)
+    $('#load-likequiz-btn').click(function(){
+        var token = $('input[name="csrfToken"]').attr('value');
+        $.ajaxSetup({
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-CSRFToken', token)
+            }
+        })
+        $.ajax({
+            type: "POST",
+            url: "{% url 'accounts:load_mypage_likequiz' %}",
+            data: {
+                'user_id': "{{ object.id }}",
+                'likequiz_offset': $(this).attr('name'),
+            },
+            dataType: 'json',
+            success: function(response){
+                $('.likepost-quizlist').append(response.like_quiz_list);
+                $('.load-likequiz-btn').attr('name', response.likequiz_offset);
+            }
+
+        });
+    });
+
+    //お気に入りユーザー登録機能
+    $('#favorite-user-btn').click(function(){
+        var token = $('input[name="csrfToken"]').attr('value');
+        $.ajaxSetup({
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-CSRFToken', token)
+            }
+        })
+        $.ajax({
+            type: "POST",
+            url: "{% url 'accounts:favorite_user_rigist' %}",
+            data: {
+                'user_id': "{{ object.id }}",
+            },
+            dataType: 'json',
+            success: function(response){
+                if(response.favorite){
+                    $('.favorite-user-btn').text('お気に入り登録を解除する');
+                }
+                else{
+                    $('.favorite-user-btn').text('お気に入りの出題者登録する');
+                }
+                
+            }
+
+        });
+    });
+
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,267 @@
+/* quiz detail */
+
+.quiz-detail-container {
+    width: 80%;
+    margin: 50px auto;
+}
+
+.quiz-detail-container h1 {
+    text-align: center;
+}
+
+
+.quiz-detail {
+    position: relative;
+    padding: 3.2em 1em 1em;
+    width: 90%;
+    margin: 30px auto;
+    background-color: #fff;
+    border: 5px solid #c6c6c6;
+    box-shadow: 0 0 8px #333, 0 0 2px #555 inset;
+}
+
+.quiz-detail-title {
+    position: absolute;
+    top: .6em;
+    left: 1em;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #eda57e;
+}
+
+.quiz-detail-problem {
+    padding-top: 1em;
+    padding-bottom: 3em;
+}
+
+.quiz-detail-createuser {
+    font-size: 13px;
+    color: rgba(128, 128, 128, 0.8);
+}
+
+.btn-quiz-detail {
+    text-align: right;
+}
+
+.btn {
+    margin: 2px;
+    padding: 2px 6px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all .3s;
+}
+
+.btn-hint {
+    color:#9c9c9c;
+    border: 2px solid #9c9c9c;
+}
+
+.btn-answer {
+    color: #ff7f6e;
+    border: 2px solid #ff7f6e;
+}
+
+.btn-hint:hover {
+    color: white;
+    background-color: #9c9c9c;
+    cursor: pointer;
+}
+
+.btn-answer:hover {
+    color: white;
+    background-color: #ff7f6e;
+    cursor: pointer;
+}
+
+/* ヒント、答えモーダル */
+.hint-modal-wrapper,.answer-modal-wrapper{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: 10%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    display: none;
+}
+
+.hint-modal, .answer-modal {
+    margin-top: 10px;
+    background-color: #e6ecf0;
+    padding: 20px 0 40px;
+    border-radius: 10px;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.hint-modal-content, .answer-modal-content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 25px;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+.hint-text, .answer-text {
+    margin: 30px auto; 
+}
+
+.hint-modal-btn, .answer-modal-btn {
+    margin-top: 25px;
+    text-align: right;
+}
+
+.modal-btn {
+    padding: 8px 25px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.like-btn {
+    font-size: 14px;
+    padding: 7px 20px;
+}
+
+.like-btn:hover {
+    color: gray;
+    background-color: #ffe8fa;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: white;
+    background-color: #9c9c9c;
+    cursor: pointer;
+}
+
+.comment {
+    color: rgba(125, 125, 122, 0.9)
+}
+
+form {
+    display: inline-block;
+}
+
+.fa-heart {
+    color: #fca2f6;
+}
+
+/* クイズ編集ボタン */
+.quiz-edit-btn {
+    width: 95%;
+    text-align: right;
+}
+
+/* editボタン */
+.edit-btn {
+    border: 1px solid black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 238, 125, 0.5);
+    color: gray;
+    font-size: 13px;
+    margin: 0 10px;
+}
+
+.edit-btn:hover {
+    background-color: rgba(255, 238, 125, 1);
+}
+
+/* deleteボタン */
+.delete-btn {
+    border: 1px solid black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 160, 125, 0.5);
+    color: gray;
+    font-size: 13px;
+    margin: 0 10px;
+}
+
+.delete-btn:hover {
+    background-color: rgba(255, 160, 125, 1);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    padding: 0;
+}
+
+
+
+/* レスポンシブデザイン */
+/* タブレット */
+@media(max-width: 1000px) {
+
+
+
+
+}
+
+/* スマホ */
+@media(max-width: 670px) {
+
+.quiz-detail-title {
+    font-size: 0.9em;
+}
+
+.quiz-detail-container {
+    width: 100%;
+}
+
+.quiz-detail-container h1 {
+    font-size: 20px;
+}
+
+.btn-quiz-detail {
+    text-align: center;
+    margin-bottom: 7px;
+}
+
+.quiz-detail-createuser {
+    font-size: 8px;
+}
+
+
+/* ヒント、答えのモーダル */
+.hint-modal, .answer-modal {
+    width: 98%;
+}
+
+.hint-modal-content, .answer-modal-content {
+    width: 90%;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+.comment {
+    font-size: 13px;
+}
+
+.quiz-edit-btn {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center
+}
+
+.edit-btn {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.delete-btn {
+    display: block;
+}
+
+
+}
+

@@ -1,0 +1,197 @@
+/* プロフィール情報 */
+.mypage-basic-info {
+    width: 100%;
+    background-image: linear-gradient(rgba(255, 217, 122, 0.3), white);
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.profile-image {
+    width:  180px;
+    height: 180px;       
+    border-radius: 50%;
+    border: 3px solid rgba(252,214,116,0.5);
+}
+
+.mypage-mypost, .mypage-likepost {
+    width: 100%;
+    background-color: rgba(194, 193, 192, 0.2);
+    padding: 40px 5%;
+}
+
+h3 {
+    text-align: center;
+    font-size: 25px;
+}
+
+/* クイズ一覧表示 */
+.mypost-quizlist, .likepost-quizlist {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.quiz-item {
+    position: relative;
+    background: white;
+    color: black;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 7px 7px #adadaa;
+    height: 200px; 
+    font-size: 15px;
+}
+
+.quiz-item a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.quiz-item:hover {
+    background-color: rgba(217, 216, 215, 0.5);
+}
+
+.load-quiz {
+    text-align: center;
+}
+
+.load-myquiz-btn, .load-likequiz-btn {
+    width: 80%;
+    margin-top: 40px; 
+    margin-bottom: 20px; 
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgba(201, 200, 199, 0.5);
+    border: 1px solid black;
+    border-radius: 7px;
+}
+
+.load-myquiz-btn:hover, .load-likequiz-btn:hover {
+    cursor: pointer;
+    background-color: rgba(201, 200, 199, 1);
+}
+
+.favorite-user-btn {
+    padding: 10px 20px;
+    background-color: rgba(191, 205, 255, 0.5);
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.favorite-user-btn:hover {
+    background-color: rgba(191, 205, 255, 1);
+    cursor: pointer;
+}
+
+.fa-heart {
+    color: pink;
+}
+
+
+.quiz-create-info {
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    font-size: 13px;
+    color: #aba9a7;
+}
+
+
+
+/* お気に入りユーザー表示 */
+.favorite-users-wrapper {
+    background-color: white;
+    padding: 40px 0;
+}
+
+.favorite-users {
+    width: 70%;
+    margin: 0 auto;
+    display: grid;
+    gap: 26px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.favorite-user-item {
+    line-height: 80px;
+}
+
+.favorite-user-profile-image {
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+}
+
+.favorite-user-border {
+    width: 80%;
+    border: 2px solid rgba(166, 164, 161, 0.4);
+}
+
+
+/* レスポンシブデザイン */
+/* タブレット */
+@media(max-width: 1100px) {
+
+.mypage-basic-info {
+    width: 100%;
+    background-image: linear-gradient(rgba(255, 217, 122, 0.3), white);
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.profile-image {
+    width:  120px;
+    height: 120px;       
+    border: 2px solid rgba(252,214,116,0.5);
+}
+
+.mypost-quizlist, .likepost-quizlist {
+    grid-template-columns: 1fr 1fr;
+}
+
+.favorite-users {
+    grid-template-columns: 1fr 1fr;
+}
+    
+}
+    
+/* スマホ */
+@media(max-width: 670px) {
+
+/* クイズ一覧 */
+.mypost-quizlist, .likepost-quizlist {
+    grid-template-columns: 1fr;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+.quiz-item {
+    font-size: 14px;
+}
+
+.quiz-create-info {
+    font-size: 12px;
+}
+
+.favorite-users {
+    grid-template-columns: 1fr;
+}
+
+.profile-image {
+    width:  100px;
+    height: 100px;       
+    border: 2px solid rgba(252,214,116,0.5);
+}
+
+}
+

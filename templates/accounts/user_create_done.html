@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h2>登録ありがとございます。</h2>
+
+<p>こちらからログインをお願いします。</p>
+<a href="{% url 'accounts:user_login' %}">ログイン</a>
+
+{% endblock %}

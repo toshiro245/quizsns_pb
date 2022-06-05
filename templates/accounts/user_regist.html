@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+regist - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/user_regist.css' %}">
+
+
+<div class="regist-wrapper">
+    <div class="regist">
+        <h3>会員登録して、なぞなぞをもっと楽しもう！</h3>
+
+        <form method="POST" class="regist-form">
+            {% csrf_token %}
+
+            <div class="form-content">
+                {% if form.username.errors %}
+                    <div class="error-message-item">{{ form.username.errors }}</div>
+                {% endif %}
+                {{ form.username }}
+            </div>
+            <div class="form-content">
+                {% if form.loginid.errors %}
+                    <div class="error-message-item">{{ form.loginid.errors }}</div>
+                {% endif %}
+                {{ form.loginid }}
+            </div>
+            <div class="form-content">
+                {% if form.password.errors %}
+                    <div class="error-message-item">{{ form.password.errors }}</div>
+                {% endif %}
+                <div class="error-message-item">{{ form.non_field_errors }}</div>
+                {{ form.password }}
+            </div>
+            <div class="form-content">
+                {% if form.confirm_password.errors %}
+                    <div class="error-message-item">{{ form.confirm_password.errors }}</div>
+                {% endif %}
+                {{ form.confirm_password }}
+            </div>
+            <input class="btn-regist" type="submit" value="登録">
+
+        </form>
+
+    </div>
+</div>
+
+
+{% endblock %}

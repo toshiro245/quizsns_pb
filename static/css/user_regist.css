@@ -1,0 +1,106 @@
+.regist-wrapper {
+    text-align: center;
+}
+
+.regist {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.regist h3 {
+    font-size: 25px;
+    letter-spacing: 5px;
+    border-bottom: 2px solid burlywood;
+    margin: 50px auto;
+}
+
+.regist p {
+    font-size: 15px;
+}
+
+.regist-form {
+    width: 100%;
+}
+
+.form-control {
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 60%;
+    margin-bottom: 10px;
+    border: 1px solid rgba(173, 173, 170, 0.6);
+    border-radius: 10px;
+}
+
+.form-content {
+    margin-bottom: 20px;
+}
+
+.btn-regist {
+    padding: 10px 35px;
+    border-radius: 10px;
+    background-color: rgba(171, 170, 166, 0.3);
+    color: black;
+    font-size: 15px;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+.btn-regist:hover {
+    background-color: rgba(171, 170, 166, 1);
+}
+
+
+.error-message-item {
+    text-align: left;
+    color: rgba(117, 116, 114, 0.8);
+    font-size: 14px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+/* レスポンシブデザイン */
+/* タブレット */
+@media(max-width: 1000px) {
+
+.regist h3 {
+    font-size: 20px;
+    letter-spacing: 3px;
+}
+
+.form-control {
+    width: 75%;
+}
+
+.error-message-item {
+    width: 75%;
+}
+
+}
+    
+/* スマホ */
+@media(max-width: 670px) {
+
+.regist {
+    width: 100%;
+}
+
+.regist h3 {
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+.form-control {
+    width: 90%;
+    font-size: 14px;
+    padding: 5px;
+}
+
+
+.error-message-item {
+    font-size: 14px;
+    width: 95%;
+    
+}
+
+}

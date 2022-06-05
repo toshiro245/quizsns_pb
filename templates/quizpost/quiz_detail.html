@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}
+quizdetail - {{ block.super }}
+{% endblock %}
+
+
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/quiz_detail.css' %}">
+
+
+<div class="quiz-detail-container">
+    <h1>さあ、なぞなぞに挑戦！</h1>
+
+    <div class="quiz-detail">
+        <div class="quiz-detail-title">- {{ object.title }} -</div>
+
+        
+            <div class="quiz-detail-problem">{{ object.problem | safe }}</div>
+
+            <div class="btn-quiz-detail">
+                <button type="button" id="btn-hint" class="btn btn-hint">ヒントを見る</button>
+                <button type="button" id="btn-answer" class="btn btn-answer">答えを見る</button>
+            </div>
+
+            <div class="quiz-detail-createuser">
+                クイズ作成者：<a href="{% url 'accounts:user_detail' pk=object.user.id %}">{{ object.user.username }}</a>({{ object.create_at }})&nbsp;&nbsp;
+                <span name="{{object.id}}-count" class="count"><i class="fas fa-lg fa-heart"></i>&nbsp;({{ object.quizlist_set.count }})</span>
+            </div>
+    </div>
+
+    <div class="quiz-edit-btn">
+        {% if object.user.id == user.id %}
+            <a class="edit-btn" href="{% url 'quizpost:quiz_edit' pk=object.id %}">クイズを編集する</a>
+            <a class="delete-btn" href="{% url 'quizpost:quiz_delete' pk=object.id %}">クイズを削除する</a>
+        {% endif %}
+    </div>
+
+
+</div>
+
+<!-- ヒントモーダル -->
+<div id="hint-modal-wrapper" class="hint-modal-wrapper">
+    <div class="hint-modal">
+        <div class="hint-modal-content">
+            <h2>ヒントです</h2>
+            <hr>
+            <div class="hint-text">{{ object.hint }}</div>
+            <hr>
+            <div class="hint-modal-btn">
+                <button type="button" class="modal-btn close-btn">close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 答えモーダル -->
+<div id="answer-modal-wrapper" class="answer-modal-wrapper">
+    <div class="answer-modal">
+        <div class="answer-modal-content">
+            <h2>答えです</h2>
+            <hr>
+            <div class="answer-text">{{ object.answer | safe }}</div>
+            <hr>
+            {% if user.is_authenticated %}
+                <p class="comment">おもしろいと思ったら、いいねボタンを押してね。</p>
+            {% endif %}
+            <div class="answer-modal-btn">
+                <button type="button" class="modal-btn close-btn">close</button>
+
+                {% if user.is_authenticated %}
+                <form action="{% url 'quizpost:quiz_like' %}" method="POST">
+                    {% csrf_token %}
+                    <button id="like" name="{{ object.id }}" type="button" class="modal-btn like-btn">
+                        {% if object.id in liked_list %}
+                            いいね<i class="fas fa-lg fa-heart"></i>
+                        {% else %}
+                            いいね <i class="far fa-lg fa-heart"></i>
+                        {% endif %}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Ajax -->
+<script>
+    // いいね機能
+    $('#like').click(function(event){
+        event.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'quizpost:quiz_like' %}",
+            data: {
+                'quiz_id': $(this).attr('name'),
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            dataType: 'json',
+            success: function(response){
+                selector = document.getElementsByName(response.quiz_post_id)
+                if(response.liked){
+                    $(selector).html("いいね <i class='fas fa-lg fa-heart'></i>");
+                }
+                else {
+                    $(selector).html("いいね <i class='far fa-lg fa-heart'></i>");
+                }
+                selector2 = document.getElementsByName(response.quiz_post_id + '-count');
+                $(selector2).html("<i class='fas fa-lg fa-heart'></i>&nbsp;(" + response.count + ")");
+            }
+        });
+    });
+</script>
+
+
+<script src="{% static 'js/quiz_detail.js' %}"></script>
+{% endblock %}

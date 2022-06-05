@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+home - {{ block.super }}
+{% endblock %}
+
+
+
+{% block content %}
+{% load quizpost_templatetag %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<div class="top-wrapper">
+    <div class="contents-container">
+        <h1>なぞなぞ掲示板</h1>
+        <p>なぞなぞに挑戦することはもちろん、自分オリジナルの問題を出題できます。</p>
+    </div>
+</div>
+
+
+<div class="main-container">
+    <div class="main-create-quiz">
+        <p>↓あなたもオリジナルのクイズを投稿しよう</p>
+        <a class="btn create-quiz" href="{% url 'quizpost:quiz_create' %}"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;クイズ作成</a>
+        <hr>
+    </div>
+
+    <div class="quiz-list-container">
+        <h2><i class="fas fa-check"></i>&nbsp;新着クイズ</h2>
+        <div class="quiz-list">
+            {% for quiz in quiz_post %}
+            {% quiz_problem_text quiz_problems forloop.counter0 as quiz_problem %}
+            <div class="quiz-item">
+                <a href="{% url 'quizpost:quiz_detail' pk=quiz.id %}"></a>
+                <p>{{ quiz.title | truncatechars:25 }}</p>
+                <hr>
+                <p>{{ quiz_problem | truncatechars:30 }}</p>
+                <p class="quiz-create-info">
+                    {{ quiz.user.username }}, {{ quiz.create_at | date:"Y-m-j" }}&nbsp;&nbsp;
+                    <i class="fas fa-lg fa-heart like-red"></i>&nbsp;({{ quiz.quizlist_set.count }})
+                </p>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div id="load-quiz"> 
+            <button type="button" name="{{ offset }}" id="load-quiz-btn" class="load-quiz-btn">もっと見る</button>
+            <input name="csrfToken" value="{{ csrf_token }}" type="hidden">
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Ajax -->
+<script>
+    //追加のクイズ読み込み
+    $('#load-quiz-btn').click(function(){
+        var token = $('input[name="csrfToken"]').attr('value');
+        $.ajaxSetup({
+            beforeSend: function(xhr){
+                xhr.setRequestHeader('X-CSRFToken', token)
+            }
+        })
+        $.ajax({
+            type: "POST",
+            url: "{% url 'quizpost:load_quiz' %}",
+            data: {
+                'offset': $(this).attr('name'),
+            },
+            dataType: 'json',
+            success: function(response){
+                $('.quiz-list').append(response.quiz_post);
+                $('.load-quiz-btn').attr('name', response.offset);
+            }
+
+        });
+    });
+
+</script>
+
+
+{% endblock %}

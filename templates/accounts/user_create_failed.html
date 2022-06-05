@@ -1,0 +1,7 @@
+エラーが発生しました。
+{% for error_message in error_messages %}
+{{ error_message }}
+{% endfor %}
+
+<p>再度ユーザー登録をやり直す場合はこちらから</p>
+<a href="{% url 'accounts:user_regist' %}">ユーザー登録画面へ</a>
